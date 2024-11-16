@@ -1,22 +1,29 @@
 const productBtn = document.getElementById("productBtn");
 let index = 1;
+let text = document.getElementById("texts");
 
 async function getData() {
   try {
     let data = await fetch(`https://fakestoreapi.com/products/${index}`);
     let products = await data.json();
 
-    products.map((product) =>{
-      let p = document.createElement("p")
-      p.textContent = product.title;
-      document.body.appendChild(p)
-    })            
-     
+    let idTitle = document.createElement("p");
+    idTitle.classList.add("title-p")
+    idTitle.textContent = "Name : " + products.title;
+    text.appendChild(idTitle);
+    let price = document.createElement("p");
+    price.classList.add("price")
+    price.textContent = "Price : " + products.price;
+    text.appendChild(price);
+    if(text.length === 20){
+
+    }
   } catch {
-    let errorP = document.createElement("p")
-    errorP.textContent = "ERROR"
-    errorP.style.color = "red"
-    document.body.appendChild(errorP)
+    alert("ინფორმაცია არ მოიძებნება")
   }
 }
-getData();
+
+productBtn.addEventListener("click", () => {
+  getData();
+  index++;
+});
